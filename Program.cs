@@ -4,7 +4,7 @@ using TestDelegate;
 class Programm 
 {
     delegate T Operations<T, K1, K2>(K1 val1, K2 val2);
-
+    //*
     enum OperationType { addition,substraction,multiplation,division};
     static int Add(int x, int y) => x + y;
     static int Subtract(int x, int y) => x - y;
