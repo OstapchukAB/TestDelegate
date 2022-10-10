@@ -21,8 +21,9 @@ namespace TestDelegate
             int result2 = doubleOperation(x);
             Console.WriteLine($"{x} {nameof(Double)} {result2}");  // 10
 
-            Operations<float?, int, int> divisionOperation = Division;
-           
+            //Operations<float?, int, int> divisionOperation = Division;
+            var divisionOperation =new Operations<float?, int, int>(Division);
+
             var res = divisionOperation(x, y);
             Console.WriteLine($"{x} / {y} = {res:F2}");  
 

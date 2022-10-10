@@ -3,8 +3,14 @@ using TestDelegate;
 
 class Programm 
 {
-    int Add(int x, int y) => x + y;
+    delegate T Operations<T, K1, K2>(K1 val1, K2 val2);
+
+    enum OperationType { addition,substraction,multiplation,division};
+    static int Add(int x, int y) => x + y;
     static int Subtract(int x, int y) => x - y;
+    static int Mult(int x, int y) => x * y;
+    static float? Division(int x, int y) => y != 0 ? (float)x / (float)y : null;
+
     static int Multiply(int x, int y, out string NameOperation)
     {
         NameOperation = "*";
@@ -25,6 +31,23 @@ class Programm
         string typeOperation;
         var res = op(x, y, out typeOperation);
         Console.WriteLine($"{x} {typeOperation} {y} = {res}");
+    }
+
+    static Operation SelectOperations(OperationType opType)
+    {
+        switch (opType)
+        {
+            case OperationType.addition:
+                return Add;
+            case OperationType.substraction:
+                return Subtract;
+            case OperationType.multiplation:
+                return Mult;
+            //case OperationType.division: 
+            //    return new Operations<float?, int, int> (Division);
+            default: return null;
+
+        }
     }
 
     public static void Main() 
@@ -72,6 +95,11 @@ class Programm
        DoOperation(x,y,Multiply);
 
         GenericDelegates.Method();
+
+        Console.WriteLine("-------------------");
+
+        Operation operation = SelectOperations(opType: OperationType.addition);
+        Console.WriteLine($"{x} {OperationType.addition.ToString()} {y} = {operation(x, y)}");
 
         Console.ReadKey();
         Environment.Exit(0);    
